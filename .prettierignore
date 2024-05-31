@@ -1,0 +1,16 @@
+build/
+coverage/
+node_modules/
+
+**/.git
+**/.svn
+**/.hg
+
+.DS_Store
+reset.css
+
+**/*.svg
+**/*.png
+**/*.jpg
+**/*.jpeg
+
