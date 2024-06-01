@@ -7,7 +7,9 @@ import cors from 'cors';
 import 'dotenv/config';
 
 const app = express();
-
+const client = process.env.VITE_CLIENT_URL
+ console.log(client)
+ 
 app.use(
   cors({
     origin: process.env.VITE_CLIENT_URL,
@@ -21,5 +23,6 @@ app.use(cookieParser());
 // RUTAS
 app.use('/api', authRoutes);
 app.use('/api', tasksRoutes);
+
 
 export default app;
