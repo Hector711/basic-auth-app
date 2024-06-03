@@ -1,7 +1,14 @@
-import axios from './axios';
+import axios from 'axios';
 
-export const registerRequest = user => axios.post(`/register`, user);
+const serverURL = import.meta.env.VITE_SERVER_URL
 
-export const loginRequest = user => axios.post(`/login`, user);
+const instance = axios.create({
+  baseURL: serverURL,
+  withCredentials: true,
+});
 
-export const verifyTokenRequest = () => axios.get('/verify');
+export const registerRequest = user => instance.post(`/register`, user);
+
+export const loginRequest = user => instance.post(`/login`, user);
+
+export const verifyTokenRequest = () => instance.get('/verify');
