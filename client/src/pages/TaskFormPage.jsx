@@ -1,13 +1,16 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTasks } from '../context/TaskContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function TaskFormPage() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const { createTask } = useTasks();
+  const navigate = useNavigate();
 
   const onSubmit = handleSubmit(data => {
-    createTask(data)
+    createTask(data);
+    navigate('/tasks')
   });
   return (
     <>

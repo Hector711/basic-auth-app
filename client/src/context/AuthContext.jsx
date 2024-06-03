@@ -36,6 +36,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await loginRequest(user);
       console.log(res);
+      setUser(res.data);
       setIsAuthenticated(true);
     } catch (error) {
       if (Array.isArray(error.response.data)) {
@@ -45,6 +46,12 @@ export const AuthProvider = ({ children }) => {
       // setErrors(error.response.data)
     }
   };
+
+  const logout = () => {
+    Cookies.remove('token');
+    setIsAuthenticated(false);
+    setUser(null)
+  }
 
   useEffect(() => {
     if (errors.length > 0) {
@@ -87,7 +94,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signup, signin, loading, user, isAuthenticated, errors }}
+      value={{ signup, signin, loading, user, isAuthenticated, errors, logout }}
     >
       {children}
     </AuthContext.Provider>

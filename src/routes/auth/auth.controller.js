@@ -37,24 +37,29 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   const { email, password } = req.body;
   try {
+    // comprobacion email
     const userFound = await User.findOne({ email });
     if (!userFound) {
       res.status(400).json({ message: 'User not found' });
     }
+    // comprobacion contraseña
     const isMatch = await bcrypt.compare(password, userFound.password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Incorrect password' });
     }
-    // creas el token de acceso
+    // creación del token de acceso
     const token = await createAccessToken({ id: userFound._id });
+    // respuesta: metemos el token en la cookie ?
     res.cookie('token', token, {
       sameSite: 'none',
       secure: true,
       httpOnly: false,
     });
+    // respuesta: lo que mandamos al cliente
     res.json({
       id: userFound._id,
-      username: userFound.email,
+      username: userFound.username,
+      email: userFound.email,
       createdAt: userFound.createdAt,
       updatedAt: userFound.updatedAt,
     });

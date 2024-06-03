@@ -16,6 +16,6 @@ export const createTaskRequest = (task) => instance.post('/tasks', task);
 
 export const updateTaskRequest = (task) => instance.put(`/tasks/${task._id}`, task);
 
-export const deleteTaskRequest= (id) => instance.delete(`/tasks/${id}`, task);
+export const deleteTaskRequest= (id) => instance.delete(`/tasks/${id}`, id);
 
 
